@@ -9,34 +9,34 @@ WARNING: Less than two connections to node X9:NC_01.  This node is used by M:X9:
 WARNING: Less than two connections to node X9:NC_02.  This node is used by M:X9:3.
 WARNING: Less than two connections to node X9:NC_03.  This node is used by M:X9:4.
 WARNING: Less than two connections to node X9:NC_04.  This node is used by M:X9:5.
-Warning: Pd = 1.296e-012 is less than W.
-Warning: Ps = 1.5552e-012 is less than W.
+Warning: Pd = 1.62e-013 is less than W.
+Warning: Ps = 1.944e-013 is less than W.
 Direct Newton iteration for .op point succeeded.
 
-t1: time=3.01275e-009 at 3.01275e-009
-t2: time=3.06498e-009 at 3.06498e-009
-t3: time=2.0422e-009 at 2.0422e-009
-t4: time=2.00915e-009 at 2.00915e-009
-transition_up: abs(t2-t1)=5.22231e-011
-transition_down: abs(t4-t3)=3.30455e-011
+t1: time=3.02515e-009 at 3.02515e-009
+t2: time=3.16319e-009 at 3.16319e-009
+t3: time=2.06187e-009 at 2.06187e-009
+t4: time=2.00873e-009 at 2.00873e-009
+transition_up: abs(t2-t1)=1.38034e-010
+transition_down: abs(t4-t3)=5.31437e-011
 
 Measurement "ratio" FAIL'ed
 
 
-Date: Mon Jun 06 17:07:38 2022
-Total elapsed time: 0.103 seconds.
+Date: Tue Jun 07 13:37:24 2022
+Total elapsed time: 0.158 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2802
-traniter = 2786
-tranpoints = 1313
-accept = 1227
-rejected = 86
+totiter = 2710
+traniter = 2696
+tranpoints = 1284
+accept = 1212
+rejected = 72
 matrix size = 12
 fillins = 14
 solver = Normal
 Matrix Compiler1: 1.42 KB object code size  0.2/0.1/[0.1]
-Matrix Compiler2: 1.37 KB object code size  0.1/0.1/[0.1]
+Matrix Compiler2: off  [0.1]/0.1/0.1
 
