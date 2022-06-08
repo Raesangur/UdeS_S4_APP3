@@ -1,9 +1,9 @@
-* C:\Users\frede\OneDrive\Bureau\UdeS_S4_APP3\add3b_test.asc
+* Z:\home\raesangur\github\UdeS_S4_APP3\add3b_test.asc
 XU1 o1 o2 o3 out Bin2Dec Vhigh={vv}
 XU2 b N004 N005 N006 Dec2Bin Vhigh={vv}
 XU3 a N001 N002 N003 Dec2Bin Vhigh={vv}
 V1 vss 0 1.8
-Va a 0 PULSE(0 {vv} 1000p 1p 1p 2000p 40000u 5)
+Va a 0 PULSE(0 {vv} 1000p 1p 1p 2000p 4000p 5)
 Vb b 0 PULSE(0 {vv} 1000p 1p 1p 2000p 4000p 5)
 Vsel sel 0 1.8
 XX1 vss N001 N002 N003 N004 N005 N006 0 o1 o2 o3 cout 0 add3b
@@ -28,14 +28,14 @@ XX20 N007 N005 vdd vss N010 nand params: NAND
 .ends add3b
 
 .subckt xor in1 Q vdd vss in2
-M1 vdd in1 N004 N002 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
-M2 N007 in1_NOT vss N008 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
-M3 N004 in2_NOT Q N004 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
-M4 vdd in2 N003 N001 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
-M5 Q in1 N007 N005 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
-M6 Q in2_NOT N007 N006 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
-M10 N003 in1_NOT Q N003 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
-M11 N007 in2 vss N009 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M1 vdd in1 N004 N002 PMOS l={ll} w={wp * 2} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M2 N007 in1_NOT vss N008 NMOS l={ll} w={wn * 2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M3 N004 in2_NOT Q N004 PMOS l={ll} w={wp * 2} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M4 vdd in2 N003 N001 PMOS l={ll} w={wp * 2} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M5 Q in1 N007 N005 NMOS l={ll} w={wn * 2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M6 Q in2_NOT N007 N006 NMOS l={ll} w={wn * 2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M10 N003 in1_NOT Q N003 PMOS l={ll} w={wp * 2} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M11 N007 in2 vss N009 NMOS l={ll} w={wn * 2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
 XX1 in1 in1_NOT vdd vss inv
 XX2 in2 in2_NOT vdd vss inv
 .lib BU_180nm.lib
@@ -60,18 +60,11 @@ M2 vdd In _Q vdd PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}}
 
 .model NMOS NMOS
 .model PMOS PMOS
-.lib C:\Users\frede\OneDrive\Documents\LTspiceXVII\lib\cmp\standard.mos
+.lib C:\users\raesangur\My Documents\LTspiceXVII\lib\cmp\standard.mos
 .param vv=1.8 nnw=180n mp=1
 .lib BU_180nm.lib
 .op
 .tran 0 10000p 0 10p
-.meas tran t1 find time when v(a1)=vv*0.1 rise 1
-.meas tran t2 find time when v(a1)=vv*0.9 rise 1
-.meas tran t3 find time when v(o1)=vv*0.1 fall 1
-.meas tran t4 find time when v(o1)=vv*0.9 fall 1
-.meas tran transition_up param abs(t2-t1)
-.meas tran transition_down param abs(t4-t3)
-.meas tran ratio param upslope/downslope
 .lib Bin2Dec.sub
 .lib Dec2Bin.sub
 .backanno
