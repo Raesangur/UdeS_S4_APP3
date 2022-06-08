@@ -1,30 +1,20 @@
 Circuit: * C:\Users\frede\OneDrive\Bureau\UdeS_S4_APP3\xor_test.asc
 
-WARNING: Node X2:NC_01 is floating.
-WARNING: Node X2:NC_02 is floating.
-WARNING: Node X2:NC_03 is floating.
-WARNING: Node X2:NC_04 is floating.
-WARNING: Node X2:NC_05 is floating.
-WARNING: Node X2:NC_06 is floating.
-WARNING: Node X2:NC_07 is floating.
-WARNING: Node X2:NC_08 is floating.
-WARNING: Node X2:NC_09 is floating.
-WARNING: Node X2:NC_10 is floating.
-WARNING: Node X2:NC_11 is floating.
+WARNING: Node X2:N002 is floating.
+WARNING: Node X2:N008 is floating.
+WARNING: Node X2:N001 is floating.
+WARNING: Node X2:N005 is floating.
+WARNING: Node X2:N006 is floating.
+WARNING: Node X2:N009 is floating.
 
-WARNING: Less than two connections to node X2:NC_01.  This node is used by M:X2:1.
-WARNING: Less than two connections to node X2:NC_02.  This node is used by M:X2:2.
-WARNING: Less than two connections to node X2:NC_03.  This node is used by M:X2:3.
-WARNING: Less than two connections to node X2:NC_04.  This node is used by M:X2:4.
-WARNING: Less than two connections to node X2:NC_05.  This node is used by M:X2:5.
-WARNING: Less than two connections to node X2:NC_06.  This node is used by M:X2:6.
-WARNING: Less than two connections to node X2:NC_07.  This node is used by M:X2:7.
-WARNING: Less than two connections to node X2:NC_08.  This node is used by M:X2:8.
-WARNING: Less than two connections to node X2:NC_09.  This node is used by M:X2:8.
-WARNING: Less than two connections to node X2:NC_10.  This node is used by M:X2:10.
-WARNING: Less than two connections to node X2:NC_11.  This node is used by M:X2:11.
-Warning: Pd = 3.24e-013 is less than W.
-Warning: Ps = 3.888e-013 is less than W.
+WARNING: Less than two connections to node X2:N002.  This node is used by M:X2:1.
+WARNING: Less than two connections to node X2:N008.  This node is used by M:X2:2.
+WARNING: Less than two connections to node X2:N001.  This node is used by M:X2:4.
+WARNING: Less than two connections to node X2:N005.  This node is used by M:X2:5.
+WARNING: Less than two connections to node X2:N006.  This node is used by M:X2:6.
+WARNING: Less than two connections to node X2:N009.  This node is used by M:X2:11.
+Warning: Pd = 1.62e-013 is less than W.
+Warning: Ps = 1.944e-013 is less than W.
 Early termination of direct N-R iteration.
 Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
 Starting Gmin stepping
@@ -47,30 +37,30 @@ Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
 
-t1: time=1.06638e-009 at 1.06638e-009
-t2: time=1.19354e-009 at 1.19354e-009
-t3: time=2.07281e-009 at 2.07281e-009
-t4: time=2.01057e-009 at 2.01057e-009
-transition_up: abs(t2-t1)=1.27165e-010
-transition_down: abs(t4-t3)=6.22415e-011
+t1: time=1.05982e-009 at 1.05982e-009
+t2: time=1.18511e-009 at 1.18511e-009
+t3: time=2.13551e-009 at 2.13551e-009
+t4: time=2.01309e-009 at 2.01309e-009
+transition_up: abs(t2-t1)=1.25291e-010
+transition_down: abs(t4-t3)=1.2242e-010
 
 Measurement "ratio" FAIL'ed
 
 
-Date: Mon Jun 06 18:05:39 2022
-Total elapsed time: 0.110 seconds.
+Date: Wed Jun 08 11:15:14 2022
+Total elapsed time: 0.452 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2979
-traniter = 2633
+totiter = 2977
+traniter = 2651
 tranpoints = 1244
 accept = 1177
 rejected = 67
-matrix size = 21
-fillins = 2
+matrix size = 18
+fillins = 0
 solver = Normal
-Matrix Compiler1: 2.05 KB object code size  0.3/0.2/[0.1]
-Matrix Compiler2: 2.24 KB object code size  0.2/0.2/[0.2]
+Matrix Compiler1: 1.69 KB object code size  0.7/0.4/[0.3]
+Matrix Compiler2: 1.99 KB object code size  0.5/0.6/[0.5]
 
