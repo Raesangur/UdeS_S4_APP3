@@ -1,0 +1,48 @@
+* C:\Users\frede\OneDrive\Bureau\UdeS_S4_APP3\and3b_test.asc
+XU1 o1 o2 o3 out Bin2Dec Vhigh={vv}
+XU2 b b1 b2 b3 Dec2Bin Vhigh={vv}
+XU3 a a1 a2 a3 Dec2Bin Vhigh={vv}
+V1 vss 0 1.8
+Va a 0 PULSE(0 {vv} 1000p 1p 1p 2000p 4000p 5)
+Vb b 0 PULSE(0 {vv} 1000p 1p 1p 2000p 4000p 5)
+Vsel sel 0 1.8
+XX1 vss a1 a2 a3 b1 b2 b3 0 o1 o2 o3 and3b
+vc c 0 1
+
+* block symbol definitions
+.subckt and3b vdd a1 a2 a3 b1 b2 b3 vss o1 o2 o3
+XX5 a3 N003 vdd vss b3 nand params: NAND
+XX6 N003 o3 vdd vss N003 nand params: NAND
+XX1 a2 N002 vdd vss b2 nand params: NAND
+XX2 N002 o2 vdd vss N002 nand params: NAND
+XX3 a1 N001 vdd vss b1 nand params: NAND
+XX4 N001 o1 vdd vss N001 nand params: NAND
+.ends and3b
+
+.subckt nand in1 Q vdd vss in2
+M2 N004 in2 vss N005 NMOS l={ll} w={wn*2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M3 Q in1 N004 N003 NMOS l={ll} w={wn*2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M4 vdd in2 Q N002 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M5 vdd in1 Q N001 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+.lib BU_180nm.lib
+.param ll=180n wn=180n wp=475n
+.ends nand
+
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\frede\OneDrive\Documents\LTspiceXVII\lib\cmp\standard.mos
+.param vv=1.8 nnw=2*180n mp=1
+.lib BU_180nm.lib
+.op
+.meas tran t1 find time when v(a1)=vv*0.1 rise 1
+.meas tran t2 find time when v(a1)=vv*0.9 rise 1
+.meas tran t3 find time when v(o1)=vv*0.1 fall 1
+.meas tran t4 find time when v(o1)=vv*0.9 fall 1
+.meas tran transition_up param abs(t2-t1)
+.meas tran transition_down param abs(t4-t3)
+.meas tran ratio param upslope/downslope
+.tran 0 10000p 0 10p
+.lib Bin2Dec.sub
+.lib Dec2Bin.sub
+.backanno
+.end
