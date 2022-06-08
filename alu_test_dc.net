@@ -1,0 +1,123 @@
+* C:\Users\frede\OneDrive\Bureau\UdeS_S4_APP3\alu_test_dc.asc
+XX1 vdd a1 a2 a3 b1 b2 b3 0 o1 o2 o3 sel cout 0 alu
+XU1 o1 o2 o3 out Bin2Dec Vhigh={vv}
+XU2 b b1 b2 b3 Dec2Bin Vhigh={vv}
+XU3 a a1 a2 a3 Dec2Bin Vhigh={vv}
+V1 vdd 0 1.8
+Va a 0 4
+Vb b 0 4
+Vsel sel 0 {1.8*0}
+Vb1 NC_01 0 7
+
+* block symbol definitions
+.subckt alu vdd a1 a2 a3 b1 b2 b3 vss o1 o2 o3 sel cout cin
+XX1 vdd a1 a2 a3 b1 b2 b3 vss N006 N008 N009 N010 cin add3b params: ll=180n wn={nnw} wp={nnw*mp/2}
+XX2 vdd a1 a2 a3 b1 b2 b3 vss N001 N002 N003 and3b params: ll=180n wn={nnw} wp={nnw*mp/2}
+XX3 vdd N001 N002 N003 N006 N008 N009 vss N004 N005 N007 sel mux2x3b params: ll=180n wn={nnw} wp={nnw*mp/2}
+XX6 N004 o1 vdd vss pad_buffer
+XX7 N005 o2 vdd vss pad_buffer
+XX8 N007 o3 vdd vss pad_buffer
+C1 o1 0 1.5p
+C2 o2 0 1.5p
+C3 o3 0 1.5p
+C4 cout 0 1.5p
+XX9 N010 cout vdd vss pad_buffer
+.ends alu
+
+.subckt add3b vdd a1 a2 a3 b1 b2 b3 vss o1 o2 o3 cout cin
+XX1 a3 N009 vdd vss b3 xor params: XOR
+XX2 N009 o3 vdd vss N007 xor params: XOR
+XX3 N009 N010 vdd vss N007 nand params: NAND
+XX4 a3 N011 vdd vss b3 nand params: NAND
+XX6 N010 cout vdd vss N011 nand params: NAND
+XX11 a1 N001 vdd vss b1 xor params: XOR
+XX12 N001 o1 vdd vss cin xor params: XOR
+XX13 N001 N002 vdd vss cin nand params: NAND
+XX14 a1 N004 vdd vss b1 nand params: NAND
+XX15 N002 N003 vdd vss N004 nand params: NAND
+XX16 a2 N005 vdd vss b2 xor params: XOR
+XX17 N005 o2 vdd vss N003 xor params: XOR
+XX18 N005 N006 vdd vss N003 nand params: NAND
+XX19 a2 N008 vdd vss b2 nand params: NAND
+XX20 N006 N007 vdd vss N008 nand params: NAND
+.ends add3b
+
+.subckt and3b vdd a1 a2 a3 b1 b2 b3 vss o1 o2 o3
+XX1 a1 N002 vdd vss b1 nand params: NAND
+XX2 N002 o1 vdd vss N002 nand params: NAND
+XX3 a2 N003 vdd vss b2 nand params: NAND
+XX4 N003 o2 vdd vss N003 nand params: NAND
+XX5 a3 N004 vdd vss b3 nand params: NAND
+XX6 N004 o3 vdd vss N004 nand params: NAND
+.ends and3b
+
+.subckt mux2x3b vdd a1 a2 a3 b1 b2 b3 vss o1 o2 o3 sel
+XX1 sel N008 vdd vss sel nand params: NAND
+XX2 a3 N007 vdd vss sel nand params: NAND
+XX7 N008 N009 vdd vss b3 nand params: NAND
+XX8 N007 o3 vdd vss N009 nand params: NAND
+XX3 sel N005 vdd vss sel nand params: NAND
+XX4 a2 N004 vdd vss sel nand params: NAND
+XX5 N005 N006 vdd vss b2 nand params: NAND
+XX6 N004 o2 vdd vss N006 nand params: NAND
+XX9 sel N002 vdd vss sel nand params: NAND
+XX10 a1 N001 vdd vss sel nand params: NAND
+XX11 N002 N003 vdd vss b1 nand params: NAND
+XX12 N001 o1 vdd vss N003 nand params: NAND
+.ends mux2x3b
+
+.subckt pad_buffer In out vdd vss
+XX1 in N001 vdd vss inv params: wn={wpad* fac * fac * fac * fac * fac * fac * fac } wp={wpad * mp * fac * fac * fac* fac * fac* fac * fac }
+XX2 N001 N002 vdd vss inv params: wn={wpad* fac * fac * fac * fac * fac * fac } wp={wpad * mp * fac * fac * fac* fac * fac* fac}
+XX3 N002 N003 vdd vss inv params: wn={wpad* fac * fac * fac * fac * fac} wp={wpad * mp * fac * fac * fac* fac * fac}
+XX4 N003 N004 vdd vss inv params: wn={wpad* fac * fac * fac * fac} wp={wpad * mp * fac * fac * fac* fac}
+XX5 N004 N005 vdd vss inv params: wn={wpad* fac * fac * fac} wp={wpad * mp * fac * fac * fac}
+XX6 N005 N006 vdd vss inv params: wn={wpad* fac * fac} wp={wpad * mp * fac* fac}
+XX7 N006 N007 vdd vss inv params: wn={wpad* fac} wp={wpad * mp * fac}
+XX8 N007 out vdd vss inv params: wn={wpad} wp={wpad * mp}
+.param wpad=360u mp=2.16 fac=0.401
+.lib BU_180nm.lib
+.ends pad_buffer
+
+.subckt xor in1 Q vdd vss in2
+M1 vdd in1 N004 N002 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M2 N007 in1_NOT vss N008 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M3 N004 in2_NOT Q N004 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M4 vdd in2 N003 N001 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M5 Q in1 N007 N005 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M6 Q in2_NOT N007 N006 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M10 N003 in1_NOT Q N003 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M11 N007 in2 vss N009 NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+XX1 in1 in1_NOT vdd vss inv
+XX2 in2 in2_NOT vdd vss inv
+.lib BU_180nm.lib
+.param ll=180n wn=180n wp=475n
+.ends xor
+
+.subckt nand in1 Q vdd vss in2
+M2 N004 in2 vss N005 NMOS l={ll} w={wn*2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M3 Q in1 N004 N003 NMOS l={ll} w={wn*2} ad={450n*{wn}} as={450n*{wn}} pd={900n*{wn}} ps={1080n*{wn}}
+M4 vdd in2 Q N002 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+M5 vdd in1 Q N001 PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+.lib BU_180nm.lib
+.param ll=180n wn=180n wp=475n
+.ends nand
+
+.subckt inv In _Q vdd vss
+M1 _Q In vss vss NMOS l={ll} w={wn} ad={450n*{wn}} as={450n*{wn}} pd={900n+{wn}} ps={1080n+{wn}}
+M2 vdd In _Q vdd PMOS l={ll} w={wp} ad={450n*{wp}} as={450n*{wp}} pd={900n+{wp}} ps={1080n+{wp}}
+.lib BU_180nm.lib
+.param ll=180n wn=180n wp=475n
+.ends inv
+
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\frede\OneDrive\Documents\LTspiceXVII\lib\cmp\standard.mos
+.param vv=1.8 nnw=180n mp=1
+.lib BU_180nm.lib
+.dc vb1 0 7 1
+* sel = 0: AND,\n     else ADD
+.lib Bin2Dec.sub
+.lib Dec2Bin.sub
+.backanno
+.end
