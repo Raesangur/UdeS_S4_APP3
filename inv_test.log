@@ -1,0 +1,32 @@
+Circuit: * C:\Users\frede\OneDrive\Bureau\UdeS_S4_APP3\inv_test.asc
+
+WARNING: Less than two connections to node B.  This node is used by V2.
+Direct Newton iteration for .op point succeeded.
+
+t1: time=4.01061e-009 at 4.01061e-009
+t2: time=4.07138e-009 at 4.07138e-009
+t3: time=2.07475e-009 at 2.07475e-009
+t4: time=2.014e-009 at 2.014e-009
+transition_up: abs(t2-t1)=6.07742e-011
+transition_down: abs(t4-t3)=6.07464e-011
+
+Measurement "ratio" FAIL'ed
+
+
+Date: Wed Jun 08 15:01:27 2022
+Total elapsed time: 0.640 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2544
+traniter = 2538
+tranpoints = 1244
+accept = 1177
+rejected = 67
+matrix size = 7
+fillins = 0
+solver = Normal
+Matrix Compiler1: 232 bytes object code size  0.2/0.2/[0.1]
+Matrix Compiler2: off  [0.2]/0.2/0.2
+
